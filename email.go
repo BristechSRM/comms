@@ -9,13 +9,6 @@ import (
 	"strings"
 )
 
-type LastContacted struct {
-	Email         string
-	LastContacted string
-}
-
-type LastContactedList []LastContacted
-
 var lastContactedMap map[string]string
 
 const URL_PATH = "/email"
