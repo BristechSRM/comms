@@ -15,6 +15,7 @@ const EMAIL_ADDRESS = "email-address"
 func main() {
 	populateLastContactedMap()
 	router := createRouter()
+	// This log will only be called if the create router method returns (which is an error)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
