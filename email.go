@@ -30,7 +30,7 @@ func populateLastContactedMap() {
 	lastContactedMap = make(map[string]string)
 	lastContactedMap["david.wybourn@superawesomegoodcode.co.uk"] = "2016-03-07T12:45:04Z"
 	lastContactedMap["chris.smith@leaddeveloper.com"] = "2016-02-17T15:51:15Z"
-	lastContactedMap["bob.builder@cartoonconstructionslimited.tv"] = "2004-01-30T05:00:01"
+	lastContactedMap["bob.builder@cartoonconstructionslimited.tv"] = "2004-01-30T05:00:01Z"
 }
 
 // getAllLastContactedTimes gets the last contacted times for all of the email addresses.
