@@ -2,9 +2,11 @@
 The speaker-comms service returns the last contacted date for all the email addresses in the system.
 
 Request Format
+
 Perform a HTTP GET request to [service-url:8080]/last-contacted
 
 Response Format
+
 {"email-address":"last-contacted-date", ...}
 
 The date is in iso-8601 format.
