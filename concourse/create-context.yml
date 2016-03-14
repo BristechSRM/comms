@@ -1,0 +1,13 @@
+platform: linux
+
+image: docker:///busybox
+
+inputs:
+- name: code
+- name: binaries
+
+outputs:
+- name: context
+
+run:
+  path: code/concourse/create-context.sh

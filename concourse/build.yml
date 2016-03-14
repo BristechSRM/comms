@@ -1,0 +1,12 @@
+platform: linux
+
+image: docker:///bristechsrm/build-go
+
+inputs:
+- name: code
+
+outputs:
+- name: binaries
+
+run:
+  path: code/concourse/build.sh
