@@ -29,6 +29,8 @@ _testmain.go
 # Swap files
 *.swp
 
+# This should contain credentials for the Concourse pipeline
+concourse/credentials.yml
 src
 pkg
 
