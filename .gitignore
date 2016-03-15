@@ -23,6 +23,12 @@ _testmain.go
 *.test
 *.prof
 
+# Ubuntu trash folder
+.Trash-*
+
+# Swap files
+*.swp
+
 src
 pkg
 
