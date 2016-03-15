@@ -18,7 +18,6 @@ resources:
   type: git
   source:
     uri: https://github.com/BristechSRM/speaker-comms.git
-    branch: concourse
 
 - name: image
   type: docker-image
