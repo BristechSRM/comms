@@ -1,6 +1,6 @@
 platform: linux
 
-image: docker:///bristechsrm/build-go
+image: docker:///bristechsrm/build-fsharp
 
 inputs:
 - name: code
