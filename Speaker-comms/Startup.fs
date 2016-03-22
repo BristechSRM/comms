@@ -1,27 +1,45 @@
-﻿module Server
+﻿module SpeakerComms.Startup
 
+open Newtonsoft.Json
 open Owin
+open System.Net.Http.Headers
 open System.Web.Http
-open Newtonsoft.Json.Serialization
 
-type Config = {
-    id : RouteParameter
-}
+[<AutoOpen>]
+module private ConfigurationHelpers =
+    let configureCors (config : HttpConfiguration) =
+        let cors = Cors.EnableCorsAttribute("*","*","*")
+        config.EnableCors(cors)
+        config
 
-let setRoutes (config : HttpConfiguration) =
-    config.Routes.MapHttpRoute("DefaultApi", "{controller}/{id}", { id = RouteParameter.Optional }) |> ignore
-    config
+    let configureRoutes (config : HttpConfiguration) =
+        let routes = config.Routes
+        let route = routes.MapHttpRoute("DefaultApi", "{controller}/{id}")
+        route.Defaults.Add("id", RouteParameter.Optional)
+        config
 
-let setFormatters (config: HttpConfiguration) = 
-    config.Formatters.Remove config.Formatters.XmlFormatter |> ignore
-    config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- DefaultContractResolver()
+    let configureSerializationFormatters (config : HttpConfiguration) =
+        config.Formatters.XmlFormatter.UseXmlSerializer <- true
 
-let createConfig = 
-    let config = new HttpConfiguration()
-    config |> setRoutes |> setFormatters
-    config
+        //The following lines are for controlling the serialisation of F# properties from Records and Unions
+        config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver ()
 
-type Startup() = 
-    member this.Configuration(app: IAppBuilder) = 
-        let config = createConfig
-        app.UseWebApi config |> ignore
+        config.Formatters.JsonFormatter.SerializerSettings.MissingMemberHandling <- MissingMemberHandling.Error
+        config.Formatters.JsonFormatter.SerializerSettings.Error <- new System.EventHandler<Serialization.ErrorEventArgs>(fun _ errorEvent ->
+            let context = System.Web.HttpContext.Current
+            let error = errorEvent.ErrorContext.Error
+            context.AddError(error)
+            errorEvent.ErrorContext.Handled <- true)
+        config.Formatters.JsonFormatter.SupportedMediaTypes.Add(MediaTypeHeaderValue("text/html"))
+        config
+
+    let registerConfiguration (config : HttpConfiguration) =
+        config
+        |> configureCors
+        |> configureRoutes
+        |> configureSerializationFormatters
+
+type Startup() =
+    member __.Configuration (appBuilder: IAppBuilder) =
+        let config = registerConfiguration( new HttpConfiguration())
+        appBuilder.UseWebApi(config) |> ignore
