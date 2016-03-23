@@ -25,4 +25,4 @@ resources:
     email: {{docker-hub-email}}
     username: bristechsrm
     password: {{docker-hub-password}}
-    repository: bristechsrm/speaker-comms
+    repository: bristechsrm/Speaker-comms
