@@ -18,6 +18,7 @@ resources:
   type: git
   source:
     uri: https://github.com/BristechSRM/speaker-comms.git
+    branch: 89-fixDockerfile
 
 - name: image
   type: docker-image
@@ -25,4 +26,4 @@ resources:
     email: {{docker-hub-email}}
     username: bristechsrm
     password: {{docker-hub-password}}
-    repository: bristechsrm/Speaker-comms
+    repository: bristechsrm/speaker-comms
