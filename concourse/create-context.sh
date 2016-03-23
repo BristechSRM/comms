@@ -4,5 +4,5 @@ set -e
 
 cp code/concourse/Dockerfile context/
 echo "Copied Dockerfile"
-cp binaries/ context/
+cp -R binaries/ context/
 echo "Copied binary"
