@@ -5,7 +5,6 @@ open Owin
 open System.Net.Http.Headers
 open System.Web.Http
 
-[<AutoOpen>]
 module private ConfigurationHelpers =
     let configureCors (config : HttpConfiguration) =
         let cors = Cors.EnableCorsAttribute("*","*","*")
@@ -41,5 +40,5 @@ module private ConfigurationHelpers =
 
 type Startup() =
     member __.Configuration (appBuilder: IAppBuilder) =
-        let config = registerConfiguration( new HttpConfiguration())
+        let config = ConfigurationHelpers.registerConfiguration( new HttpConfiguration())
         appBuilder.UseWebApi(config) |> ignore
