@@ -2,15 +2,9 @@
 
 set -e
 
-export GOPATH=`pwd`/code
 cd code
-
-# TODO: Automatically go get dependencies
-go get github.com/gorilla/mux
-echo "Fetched Gorilla Mux"
-
-go build -o speaker-comms
-echo "Built binary"
+cp -R /code/.nuget/ .
+cp -R /code/packages/ .
+mono packages/FAKE/tools/FAKE.exe build.fsx
 cd ..
-cp code/speaker-comms binaries/
-echo "Copied binary to output"
+cp code/build/output/* binaries/

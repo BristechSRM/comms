@@ -1,10 +1,9 @@
-FROM ubuntu 
+FROM ubuntu
 
-# Out of date Git, but only used for "go get"
-RUN sudo apt-get update && sudo apt-get install -y git curl
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
+    echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list && \
+    apt-get update && \
+    apt-get -y install mono-devel fsharp wget
 
-RUN curl -O https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz && \
-    tar -C /usr/local -xzf go1.6.linux-amd64.tar.gz
-
-ENV PATH /usr/local/go/bin:$PATH
-# GOPATH should be set when code is mapped into this container
+RUN mkdir -p code/.nuget && cd code/.nuget && wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe && cd .. && \
+    mono .nuget/nuget.exe install "FAKE" -OutputDirectory packages/ -ExcludeVersion
