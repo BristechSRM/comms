@@ -31,6 +31,7 @@ func createRouter() *mux.Router {
 // getAllLastContactedTimes gets the last contacted times for all of the email addresses.
 // The response is in json format of the form {emailAddress:date, ...}
 func getAllLastContactedTimes(writer http.ResponseWriter, request *http.Request) {
-	writer.WriteHeader(http.StatusOK)
-	json.NewEncoder(writer).Encode(lastContactedMap)
+	  writer.Header().Set("Access-Control-Allow-Origin", "*")
+	  writer.WriteHeader(http.StatusOK)
+    json.NewEncoder(writer).Encode(lastContactedMap)
 }
