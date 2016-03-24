@@ -8,15 +8,15 @@ jobs:
   public: true
   serial: true
   plan:
-      #- get: code
-      #trigger: true
-      #  - task: build
-      #    file: code/concourse/build.yml
-      #  - task: create-context
-      #    file: code/concourse/create-context.yml
-      #  - put: image
-      #    params:
-      #      build: context
+  - get: code
+    trigger: true
+  - task: build
+    file: code/concourse/build.yml
+  - task: create-context
+    file: code/concourse/create-context.yml
+  - put: image
+    params:
+      build: context
   - put: cluster
 
 resources:
