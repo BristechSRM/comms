@@ -1,17 +1,23 @@
+resource_types:
+  - name: ecs
+    type: docker-image
+    source: 
+      repository: bristechsrm/notify_ecs
 jobs:
 - name: build
   public: true
   serial: true
   plan:
-  - get: code
-    trigger: true
-  - task: build
-    file: code/concourse/build.yml
-  - task: create-context
-    file: code/concourse/create-context.yml
-  - put: image
-    params:
-      build: context
+      #- get: code
+      #trigger: true
+      #  - task: build
+      #    file: code/concourse/build.yml
+      #  - task: create-context
+      #    file: code/concourse/create-context.yml
+      #  - put: image
+      #    params:
+      #      build: context
+  - put: cluster
 
 resources:
 - name: code
@@ -26,3 +32,10 @@ resources:
     username: bristechsrm
     password: {{docker-hub-password}}
     repository: bristechsrm/speaker-comms
+
+- name: cluster
+  type: ecs
+  source:
+    task: create-build-image
+    accessKeyId: {{awsAccessKeyId}}
+    secretAccessKey: {{awsSecretAccessKey}}
