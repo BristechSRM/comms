@@ -3,4 +3,4 @@
 set -e
 
 cp code/concourse/Dockerfile context/
-cp binaries/ context/
+cp -R binaries/ context/

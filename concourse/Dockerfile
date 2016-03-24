@@ -1,4 +1,8 @@
-FROM golang
-COPY ./speaker-comms /speaker-comms
-EXPOSE 8080
-ENTRYPOINT ["/speaker-comms"]
+FROM mono
+
+COPY binaries/ service/ 
+
+EXPOSE 9001
+
+CMD ["mono", "service/Speaker-comms.exe"]
+
