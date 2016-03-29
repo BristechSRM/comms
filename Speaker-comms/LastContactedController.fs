@@ -17,7 +17,7 @@ type LastContactedController() =
              "me@rachelandrew.co.uk", "2016/02/26";
              "toby@warmfusion.co.uk", "2016/03/11";
              "rich@rich-knight.com", "2016/03/11";
-             "tom@ultrahaptics.com", "2016/02/12";
+             "tom@ultrahaptics.com", "2016/02/16";
              "12e.david@gmail.com", "2016/02/19";]
              |> Map.ofList
         lastContactedData
