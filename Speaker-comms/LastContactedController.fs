@@ -1,7 +1,7 @@
 ﻿namespace SpeakerComms.LastContactedController
 
 open System.Web.Http
-open Speakercomms.LastContactedService
+open SpeakerComms.LastContactedService
 
 type LastContactedController() =
     inherit ApiController()

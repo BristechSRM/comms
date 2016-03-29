@@ -23,6 +23,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Models.fs" />
     <Compile Include="CorrespondenceService.fs" />
+    <Compile Include="LastContactedService.fs" />
     <Compile Include="LastContactedController.fs" />
     <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />

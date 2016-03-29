@@ -1,23 +1,19 @@
-﻿module Speakercomms.LastContactedService
+﻿module SpeakerComms.LastContactedService
 
-open Speakercomms.CorrespondenceService
+open SpeakerComms.CorrespondenceService
 open System
-open Speakercomms.Models
+open SpeakerComms.Models
+open System.Collections.Generic
 
-let updateMap key value (map : Map<String, String>) = 
-    if not <| map.ContainsKey(key) || ((Map.find key map) < value)then
-        map.Add (key, value)
-    else 
-        map
+let update key value (map : Dictionary<String, String>) = 
+    if not <| map.ContainsKey(key) || map.[key] < value then
+        map.[key] <- value
 
 let getLastContacted () =                     
-    let items = getCorrespondence()
-    let mutable lastContactedMap : Map<String, String> = Map.empty
+    let map = Dictionary<string, string>()
         
-    for item in items do
-        lastContactedMap <- 
-            lastContactedMap
-            |> updateMap item.From item.Date
-            |> updateMap item.To item.Date
+    for item in getCorrespondence() do
+        map |> update item.From item.Date 
+        map |> update item.To item.Date
         
-    lastContactedMap
+    map
