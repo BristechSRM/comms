@@ -9,16 +9,16 @@ type LastContactedController() =
     member __.Get() = 
         // Temporary, being used just for demo.
         let lastContactedData = 
-            ["saatviga.sudhahar@bristol.ac.uk", "22/03/2016";
-             "carolyn@kwmc.org.uk", "11/03/2016";
-             "matt@doics.co", "11/03/2016";
-             "l.kreczko@bristol.ac.uk", "29/02/2016";
-             "ddrozdzewski@scottlogic.com", "17/02/2016";
-             "me@rachelandrew.co.uk", "26/02/2016";
-             "toby@warmfusion.co.uk", "11/03/2016";
-             "rich@rich-knight.com", "11/03/2016";
-             "tom@ultrahaptics.com", "16/02/2016";
-             "12e.david@gmail.com", "19/02/2016";]
+            ["saatviga.sudhahar@bristol.ac.uk", "2016/03/22";
+             "carolyn@kwmc.org.uk", "2016/03/11";
+             "matt@doics.co", "2016/03/11";
+             "l.kreczko@bristol.ac.uk", "2016/02/29";
+             "ddrozdzewski@scottlogic.com", "2016/02/17";
+             "me@rachelandrew.co.uk", "2016/02/26";
+             "toby@warmfusion.co.uk", "2016/03/11";
+             "rich@rich-knight.com", "2016/03/11";
+             "tom@ultrahaptics.com", "2016/02/12";
+             "12e.david@gmail.com", "2016/02/19";]
              |> Map.ofList
         lastContactedData
         //getLastContacted()
