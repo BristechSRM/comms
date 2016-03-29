@@ -6,7 +6,7 @@ open System.Threading
 
 [<EntryPoint>]
 let main _ = 
-    let baseUrl = "http://*:9001"
+    let baseUrl = "http://*:8080"
     use server = WebApp.Start<Startup>(baseUrl)
     printfn "Running on %s" baseUrl
 
