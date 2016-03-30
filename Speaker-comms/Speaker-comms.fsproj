@@ -25,6 +25,7 @@
     <Compile Include="CorrespondenceService.fs" />
     <Compile Include="LastContactedService.fs" />
     <Compile Include="LastContactedController.fs" />
+    <Compile Include="CorrespondenceController.fs" />
     <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
     <None Include="packages.config" />
