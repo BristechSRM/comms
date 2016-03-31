@@ -2,7 +2,6 @@
 
 open SpeakerComms.CorrespondenceService
 open System
-open SpeakerComms.Models
 open System.Collections.Generic
 
 let update key value (map : Dictionary<String, String>) = 

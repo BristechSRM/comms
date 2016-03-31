@@ -18,9 +18,9 @@ The date is in iso-8601 format.
 Example response
 ````javascript
 {
-    "bob.builder@cartoonconstructionslimited.tv" : "2004-01-30 05:00:01",
-    "chris.smith@leaddeveloper.com" : "2016-02-17 15:51:15",
-    "david.wybourn@superawesomegoodcode.co.uk" : "2016-03-07 12:45:04"
+    "bob.builder@cartoonconstructionslimited.tv" : "2004-01-30T05:00:01Z",
+    "chris.smith@leaddeveloper.com" : "2016-02-17T15:51:15Z",
+    "david.wybourn@superawesomegoodcode.co.uk" : "2016-03-07T12:45:04Z"
 }
 ````
 
@@ -46,7 +46,9 @@ Example Response
 {
   "from"    : "david@email.com"
   "to"      : "chris@email.com"
-  "date"    : "2016-03-30"
+  "date"    : "2016-03-30T14:10:21Z"
   "message" : "Hi Chris, I would like to do a Talk"
 }
 ````
+
+Note. Speaker-comms will require aws credentials with dynamodb read access in the file ~/.aws/credentials.

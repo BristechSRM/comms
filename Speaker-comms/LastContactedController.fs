@@ -2,9 +2,10 @@
 
 open System.Web.Http
 open SpeakerComms.LastContactedService
+open System.Net.Http
 
 type LastContactedController() =
     inherit ApiController()
 
-    member __.Get() = 
-        getLastContacted()
+    member x.Get() = 
+        x.Request.CreateResponse(getLastContacted())
