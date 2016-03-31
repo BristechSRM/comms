@@ -2,9 +2,10 @@
 
 open System.Web.Http
 open SpeakerComms.CorrespondenceService
+open System.Net.Http
 
 type CorrespondenceController() = 
     inherit ApiController()
 
-    member __.Get() = 
-        getCorrespondence()
+    member x.Get() = 
+        x.Request.CreateResponse(getCorrespondence())
