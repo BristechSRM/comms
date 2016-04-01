@@ -1,6 +1,5 @@
 ﻿module SpeakerComms.Models
 
-open System
 open Amazon.DynamoDBv2.DataModel
 
 [<DynamoDBTable("Correspondence")>]
