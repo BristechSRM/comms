@@ -37,6 +37,7 @@ resources:
   type: ecs
   source:
     stackName: development
+    clusterName: speakersCluster
     taskName: speakerCommsTaskDefinition
     serviceName: speakerCommsService
     accessKeyId: {{awsAccessKeyId}}
