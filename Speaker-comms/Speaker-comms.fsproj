@@ -31,6 +31,7 @@
     <Compile Include="LastContactedService.fs" />
     <Compile Include="LastContactedController.fs" />
     <Compile Include="CorrespondenceController.fs" />
+    <Compile Include="Logging.fs" />
     <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
     <None Include="packages.config" />
@@ -53,6 +54,14 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib" />
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.FullNetFx">
+      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.FullNetFx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
