@@ -3,6 +3,8 @@
 open Microsoft.Owin.Hosting
 open SpeakerComms.Startup
 open System.Threading
+open SpeakerComms.Logging
+open Serilog
 
 (*
     Note: When running this app from Visual studio / On Windows / Possibly with mono develop (Not checked)
@@ -19,10 +21,12 @@ open System.Threading
 *)
 
 [<EntryPoint>]
-let main _ = 
+let main _ =
+    setupLogging()
+
     let baseUrl = "http://*:8080"
     WebApp.Start<Startup>(baseUrl) |> ignore
-    printfn "Running on %s" baseUrl
+    Log.Information("Listening on {Address}", baseUrl)
 
     let cancelSource = new CancellationTokenSource()
     cancelSource.Token.WaitHandle.WaitOne() |> ignore
