@@ -16,6 +16,9 @@
     "paths": {
         "/threads": {
             "post": {
+                "tags": [
+                    "comms"
+                ],
                 "summary": "Adds a communication thread",
                 "description": "Creates a communication thread",
                 "parameters": [
@@ -53,6 +56,9 @@
         },
         "/threads/{threadId}": {
             "get": {
+                "tags": [
+                    "comms"
+                ],
                 "summary": "Returns details of the specified communication thread",
                 "description": "Returns all correspondence within a communication thread",
                 "parameters": [
@@ -83,6 +89,9 @@
         },
         "/last-contacted": {
             "get": {
+                "tags": [
+                    "comms"
+                ],
                 "summary": "Retrieves the last contacted date for all communication threads",
                 "description": "The last contacted date for all communication threads includes the thread identifier, the date of last contact in that thread, and the direction of the contact - 'out' being from -> to, while 'in' is to -> from.\n",
                 "responses": {
