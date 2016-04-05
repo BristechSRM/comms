@@ -30,6 +30,7 @@
     <Compile Include="CorrespondenceService.fs" />
     <Compile Include="LastContactedService.fs" />
     <Compile Include="LastContactedController.fs" />
+    <Compile Include="DocsController.fs" />
     <Compile Include="CorrespondenceController.fs" />
     <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
@@ -37,6 +38,7 @@
     <Content Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="api.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AWSSDK.Core">
