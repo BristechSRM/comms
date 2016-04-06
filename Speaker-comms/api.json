@@ -1,0 +1,254 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Comms",
+        "description": "Retrieve details about communications",
+        "version": "1.0.0"
+    },
+    "host": "api.bris.tech:8080",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/threads": {
+            "post": {
+                "tags": [
+                    "comms"
+                ],
+                "summary": "Adds a communication thread",
+                "description": "Creates a communication thread",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "The communication correspondence",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Correspondence"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Communication thread successfully created",
+                        "schema": {
+                            "$ref": "#/definitions/ThreadCreated"
+                        }
+                    },
+                    "422": {
+                        "description": "Communication thread validation error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/threads/{threadId}": {
+            "get": {
+                "tags": [
+                    "comms"
+                ],
+                "summary": "Returns details of the specified communication thread",
+                "description": "Returns all correspondence within a communication thread",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "threadId",
+                        "description": "The communication thread identifier",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Communication thread found",
+                        "schema": {
+                            "$ref": "#/definitions/ThreadDetail"
+                        }
+                    },
+                    "404": {
+                        "description": "Communication thread not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/last-contact": {
+            "get": {
+                "tags": [
+                    "comms"
+                ],
+                "summary": "Retrieves the last contact date for all communication threads",
+                "description": "The last contacted date for all communication threads includes the thread identifier, the date of last contact in that thread, and the direction of the contact - 'out' being from -> to, while 'in' is to -> from.\n",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/LastContactSummary"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Correspondence": {
+            "type": "object",
+            "properties": {
+                "fromProfileId": {
+                    "type": "string",
+                    "format": "guid",
+                    "description": "The from profile identifier"
+                },
+                "toProfileId": {
+                    "type": "string",
+                    "format": "guid",
+                    "description": "The to profile identifier"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of correspondence",
+                    "enum": [
+                        "email",
+                        "mobile",
+                        "twitter",
+                        "meetup"
+                    ]
+                },
+                "fromHandleId": {
+                    "type": "string",
+                    "description": "The handle identifier of the 'from'. E.g. if the type of correspondence is 'email', then this will be the email address of the 'from' profile. If the type of correspondence is twitter, then this will be the twitter handle of the from profile."
+                },
+                "toHandleId": {
+                    "type": "string",
+                    "description": "The handle identifier of the 'to'."
+                },
+                "date": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ThreadDetail": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "guid",
+                    "description": "The unique communication thread identifier"
+                },
+                "correspondence": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Correspondence"
+                    }
+                }
+            }
+        },
+        "ThreadCreated": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The unique identifier"
+                }
+            }
+        },
+        "LastContactSummary": {
+            "type": "object",
+            "properties": {
+                "threadId": {
+                    "type": "string",
+                    "format": "guid",
+                    "description": "The communication thread identifier."
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "The date of the last communication."
+                },
+                "direction": {
+                    "type": "string",
+                    "description": "The direction of the communication (out = from -> to, in = to -> from)",
+                    "enum": [
+                        "out",
+                        "in"
+                    ]
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ErrorDetail"
+                    }
+                }
+            }
+        },
+        "ErrorDetail": {
+            "type": "object",
+            "required": [
+                "resource",
+                "code",
+                "message"
+            ],
+            "properties": {
+                "resource": {
+                    "type": "string",
+                    "description": "The resource being accessed"
+                },
+                "field": {
+                    "type": "string",
+                    "description": "Optional field used for invalid or missing fields"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "Can be missing (i.e. a resource is missing), missing-field (a required field was not sent in the request), invalid (the specified field does not pass validation or already-exists (the resource already exists).",
+                    "enum": [
+                        "missing",
+                        "missing-field",
+                        "invalid",
+                        "already-exists"
+                    ]
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
