@@ -1,7 +1,7 @@
 resource_types:
   - name: ecs
     type: docker-image
-    source: 
+    source:
       repository: bristechsrm/notify_ecs
 jobs:
 - name: build
@@ -23,7 +23,7 @@ resources:
 - name: code
   type: git
   source:
-    uri: https://github.com/BristechSRM/speaker-comms.git
+    uri: https://github.com/BristechSRM/correspondence.git
 
 - name: image
   type: docker-image
@@ -31,14 +31,14 @@ resources:
     email: {{docker-hub-email}}
     username: bristechsrm
     password: {{docker-hub-password}}
-    repository: bristechsrm/speaker-comms
+    repository: bristechsrm/correspondence
 
 - name: cluster
   type: ecs
   source:
     stackName: development
     clusterName: apiCluster
-    taskName: speakerCommsTaskDefinition
-    serviceName: speakerCommsService
+    taskName: correspondenceTaskDefinition
+    serviceName: correspondenceService
     accessKeyId: {{awsAccessKeyId}}
     secretAccessKey: {{awsSecretAccessKey}}
