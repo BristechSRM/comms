@@ -1,9 +1,9 @@
-﻿module speakercomms.AssemblyInfo
+﻿module Correspondence.AssemblyInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices
 
-[<assembly: AssemblyTitle("Speaker-comms")>]
+[<assembly: AssemblyTitle("Correspondence")>]
 [<assembly: AssemblyDescription("")>]
 [<assembly: AssemblyConfiguration("")>]
 [<assembly: AssemblyCompany("")>]
@@ -19,4 +19,3 @@ open System.Runtime.CompilerServices
 //[<assembly: AssemblyKeyFile("")>]
 
 ()
-

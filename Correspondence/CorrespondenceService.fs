@@ -1,4 +1,4 @@
-﻿module SpeakerComms.CorrespondenceService
+﻿module Correspondence.CorrespondenceService
 
 open Amazon.DynamoDBv2
 open Amazon

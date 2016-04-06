@@ -1,9 +1,9 @@
-﻿module SpeakerComms.Models
+﻿module Correspondence.Models
 
 open Amazon.DynamoDBv2.DataModel
 
 [<DynamoDBTable("Correspondence")>]
-type CorrespondenceItem () = 
+type CorrespondenceItem () =
     member val From = "" with get, set
     member val To = "" with get, set
     member val Date = "" with get, set

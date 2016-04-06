@@ -1,4 +1,4 @@
-﻿module SpeakerComms.Logging
+﻿module Correspondence.Logging
 
 open Serilog
 

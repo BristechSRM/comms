@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{CDA253CB-C05D-4012-A4E5-A4C270EF9854}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Speakercomms</RootNamespace>
-    <AssemblyName>Speaker-comms</AssemblyName>
+    <RootNamespace>Correspondence</RootNamespace>
+    <AssemblyName>Correspondence</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <Name>Speaker-comms</Name>
+    <Name>Correspondence</Name>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>

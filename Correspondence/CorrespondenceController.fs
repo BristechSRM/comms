@@ -1,13 +1,13 @@
-﻿namespace SpeakerComms.CorrespondenceController
+﻿namespace Correspondence.CorrespondenceController
 
 open System.Web.Http
-open SpeakerComms.CorrespondenceService
+open Correspondence.CorrespondenceService
 open System.Net.Http
 open Serilog
 
-type CorrespondenceController() = 
+type CorrespondenceController() =
     inherit ApiController()
 
-    member x.Get() = 
+    member x.Get() =
         Log.Information("Received GET request for correspondence")
         x.Request.CreateResponse(getCorrespondence())
