@@ -1,9 +1,9 @@
 ﻿module Program
 
 open Microsoft.Owin.Hosting
-open SpeakerComms.Startup
+open Comms.Startup
 open System.Threading
-open SpeakerComms.Logging
+open Comms.Logging
 open Serilog
 
 (*
@@ -17,7 +17,7 @@ open Serilog
 
     After running this command, you won't need to run visual studio as administrator again.
 
-    Reference : http://stackoverflow.com/questions/27842979/owin-webapp-start-gives-a-first-chance-exception-of-type-system-reflection-targ 
+    Reference : http://stackoverflow.com/questions/27842979/owin-webapp-start-gives-a-first-chance-exception-of-type-system-reflection-targ
 *)
 
 [<EntryPoint>]

@@ -1,4 +1,4 @@
-﻿module SpeakerComms.Startup
+﻿module Comms.Startup
 
 open Newtonsoft.Json
 open Owin

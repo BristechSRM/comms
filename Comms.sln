@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Speaker-comms", "Speaker-comms\Speaker-comms.fsproj", "{CDA253CB-C05D-4012-A4E5-A4C270EF9854}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Comms", "Comms\Comms.fsproj", "{CDA253CB-C05D-4012-A4E5-A4C270EF9854}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
-﻿namespace SpeakerComms.LastContactedController
+﻿namespace Comms.LastContactedController
 
 open System.Web.Http
-open SpeakerComms.LastContactedService
+open Comms.LastContactedService
 open System.Net.Http
 open Serilog
 
@@ -9,6 +9,6 @@ open Serilog
 type LastContactedController() =
     inherit ApiController()
 
-    member x.Get() = 
+    member x.Get() =
         Log.Information("Received GET request for last contacted")
         x.Request.CreateResponse(getLastContacted())

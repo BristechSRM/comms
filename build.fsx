@@ -1,4 +1,4 @@
-#r "packages/FAKE/tools/FakeLib.dll"  
+#r "packages/FAKE/tools/FakeLib.dll"
 open Fake
 
 RestorePackages()
@@ -10,7 +10,7 @@ Target "Clean" (fun _ ->
 )
 
 Target "BuildApp" (fun _ ->
-    !! "Speaker-comms/**/*.fsproj"
+    !! "Comms/**/*.fsproj"
     |> MSBuildRelease buildDir "Build"
     |> Log "AppBuld-Output: "
 )
