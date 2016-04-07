@@ -24,7 +24,7 @@ open Serilog
 let main _ =
     setupLogging()
 
-    let baseUrl = "http://*:8080"
+    let baseUrl = "http://*:9001"
     WebApp.Start<Startup>(baseUrl) |> ignore
     Log.Information("Listening on {Address}", baseUrl)
 
