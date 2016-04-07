@@ -5,6 +5,7 @@ open SpeakerComms.LastContactedService
 open System.Net.Http
 open Serilog
 
+[<Route("last-contacted")>]
 type LastContactedController() =
     inherit ApiController()
 
