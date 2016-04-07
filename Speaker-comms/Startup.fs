@@ -14,6 +14,7 @@ module private ConfigurationHelpers =
         config
 
     let configureRoutes (config : HttpConfiguration) =
+        config.MapHttpAttributeRoutes()
         let routes = config.Routes
         let route = routes.MapHttpRoute("DefaultApi", "{controller}/{id}")
         route.Defaults.Add("id", RouteParameter.Optional)
