@@ -1,5 +1,5 @@
-# Speaker-comms
-The speaker-comms service has two endpoints, one for getting all correspondence and one for getting the last contact date for each speaker.
+# Comms
+The comms service has two endpoints, one for getting all correspondence and one for getting the last contact date for each thing contacted.
 
 ## Last-contacted
 Request format
@@ -51,4 +51,4 @@ Example Response
 }
 ````
 
-Note. Speaker-comms will require aws credentials with dynamodb read access in the file ~/.aws/credentials.
+Note. comms will require aws credentials with dynamodb read access in the file ~/.aws/credentials.

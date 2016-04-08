@@ -1,1 +1,1 @@
-mono build/output/Speaker-comms.exe
+mono build/output/Comms.exe
