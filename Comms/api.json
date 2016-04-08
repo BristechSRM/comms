@@ -28,7 +28,10 @@
                         "description": "The communication correspondence",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Correspondence"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Correspondence"
+                            }
                         }
                     }
                 ],
@@ -93,7 +96,7 @@
                     "comms"
                 ],
                 "summary": "Retrieves the last contact date for all communication threads",
-                "description": "The last contacted date for all communication threads includes the thread identifier, the date of last contact in that thread, and the direction of the contact - 'out' being from -> to, while 'in' is to -> from.\n",
+                "description": "The last contact date for all communication threads includes the thread identifier, the date of the last contact in that thread, and the sender and receiver of the last contact in the thread.\n",
                 "responses": {
                     "200": {
                         "description": "Successful response",
@@ -118,15 +121,15 @@
         "Correspondence": {
             "type": "object",
             "properties": {
-                "fromProfileId": {
+                "senderId": {
                     "type": "string",
                     "format": "guid",
-                    "description": "The from profile identifier"
+                    "description": "The identifier of the sender"
                 },
-                "toProfileId": {
+                "receiverId": {
                     "type": "string",
                     "format": "guid",
-                    "description": "The to profile identifier"
+                    "description": "The identifier of the reciever"
                 },
                 "type": {
                     "type": "string",
@@ -138,13 +141,13 @@
                         "meetup"
                     ]
                 },
-                "fromHandleId": {
+                "senderHandle": {
                     "type": "string",
-                    "description": "The handle identifier of the 'from'. E.g. if the type of correspondence is 'email', then this will be the email address of the 'from' profile. If the type of correspondence is twitter, then this will be the twitter handle of the from profile."
+                    "description": "The handle of the sender. E.g. if the type of correspondence is 'email', then this will be the email address of the sender. If the type of correspondence is twitter, then this will be the twitter handle of the sender."
                 },
-                "toHandleId": {
+                "receiverHandle": {
                     "type": "string",
-                    "description": "The handle identifier of the 'to'."
+                    "description": "The handle of the receiver."
                 },
                 "date": {
                     "type": "string"
@@ -162,7 +165,7 @@
                     "format": "guid",
                     "description": "The unique communication thread identifier"
                 },
-                "correspondence": {
+                "items": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Correspondence"
@@ -192,13 +195,15 @@
                     "format": "date",
                     "description": "The date of the last communication."
                 },
-                "direction": {
+                "senderId": {
                     "type": "string",
-                    "description": "The direction of the communication (out = from -> to, in = to -> from)",
-                    "enum": [
-                        "out",
-                        "in"
-                    ]
+                    "format": "guid",
+                    "description": "The identifier of the sender"
+                },
+                "receiverId": {
+                    "type": "string",
+                    "format": "guid",
+                    "description": "The identifier of the receiver"
                 }
             }
         },
