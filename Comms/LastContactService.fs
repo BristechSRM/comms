@@ -1,4 +1,4 @@
-﻿module Comms.LastContactedService
+﻿module Comms.LastContactService
 
 open Comms.CorrespondenceService
 open System
@@ -9,8 +9,8 @@ let update key value (map : Dictionary<String, String>) =
     if not <| map.ContainsKey(key) || map.[key] < value then
         map.[key] <- value
 
-let getLastContacted () =
-    Log.Information("Calculating last contacted from correspondence items")
+let getLastContact () =
+    Log.Information("Calculating last contact from correspondence items")
 
     let map = Dictionary<string, string>()
 
