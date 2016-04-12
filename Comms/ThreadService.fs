@@ -4,10 +4,10 @@ open Amazon.DynamoDBv2
 open Amazon
 open Amazon.DynamoDBv2.DataModel
 open Amazon.DynamoDBv2.DocumentModel
-open Comms.Models
 open System
 open Serilog
 open Comms.Models
+open Comms.Entities
 
 let client = new AmazonDynamoDBClient(RegionEndpoint.EUWest1)
 let context = new DynamoDBContext(client)
