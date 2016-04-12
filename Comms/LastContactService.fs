@@ -19,4 +19,6 @@ let threadToLastContactSummary(thread : ThreadDetail): LastContactSummary =
 let getLastContact () =
     Log.Information("Calculating last contact from correspondence")
 
-    getThreads() |> Seq.map threadToLastContactSummary 
+    getThreads() 
+    |> Seq.filter (fun t ->  t.Items |> Seq.length > 0) 
+    |> Seq.map threadToLastContactSummary 
