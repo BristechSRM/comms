@@ -1,10 +1,26 @@
 ﻿module Comms.Models
 
-open Amazon.DynamoDBv2.DataModel
+open System
+open Comms.Entities
 
-[<DynamoDBTable("Correspondence")>]
-type CorrespondenceItem () =
-    member val From = "" with get, set
-    member val To = "" with get, set
-    member val Date = "" with get, set
-    member val Message = "" with get, set
+type Correspondence = {
+    SenderId : string
+    ReceiverId : string
+    Type : string
+    SenderHandle : string
+    ReceiverHandle : string
+    Date : string
+    Message : string
+    }
+
+type ThreadDetail = {
+    Id : string
+    Items : seq<Correspondence>
+}
+
+type LastContactSummary = {
+    ThreadId : string
+    Date : string
+    SenderId : string
+    ReceiverId : string
+}

@@ -26,10 +26,11 @@
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\4.0\Framework\v4.0\Microsoft.FSharp.Targets" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Entities.fs" />
     <Compile Include="Models.fs" />
-    <Compile Include="CorrespondenceService.fs" />
-    <Compile Include="LastContactedService.fs" />
-    <Compile Include="LastContactedController.fs" />
+    <Compile Include="ThreadService.fs" />
+    <Compile Include="LastContactService.fs" />
+    <Compile Include="LastContactController.fs" />
     <Compile Include="DocsController.fs" />
     <Compile Include="Logging.fs" />
     <Compile Include="Startup.fs" />
