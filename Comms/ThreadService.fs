@@ -22,7 +22,7 @@ let entityToCorrespondence (entity : CorrespondenceEntity) : Correspondence =
       Message = entity.Message }
 
 let getEntityItems (id : string) : seq<Correspondence> = 
-    Log.Information("Contacting DynamoDB for correspondence with {id}", id)
+    Log.Information("Contacting DynamoDB for correspondence items with ThreadId: {id}", id)
     let x = context.Scan<CorrespondenceEntity>(new ScanCondition("ThreadId", ScanOperator.Equal, id))
     x
     |> Seq.cast
@@ -33,7 +33,7 @@ let entityToThread (entity : ThreadEntity) : ThreadDetail =
       Items = entity.Id |> getEntityItems }
 
 let getThread (id : string) = 
-    Log.Information("Contacting DynamoDB for thread with $id", id)
+    Log.Information("Contacting DynamoDB for thread with Id: {id}", id)
     context.Scan<ThreadDetail>(new ScanCondition("Id", ScanOperator.Equal, id))
 
 let getThreads() = 
