@@ -6,9 +6,8 @@ open System.Net.Http
 open Serilog
 
 [<Route("last-contact")>]
-type LastContact() =
+type LastContactController() = 
     inherit ApiController()
-
-    member x.Get() =
+    member x.Get() = 
         Log.Information("Received GET request for last contact")
         x.Request.CreateResponse(getLastContact())

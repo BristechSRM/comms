@@ -21,13 +21,12 @@ open Serilog
 *)
 
 [<EntryPoint>]
-let main _ =
+let main _ = 
     setupLogging()
-
     let baseUrl = "http://*:9001"
-    WebApp.Start<Startup>(baseUrl) |> ignore
+    use server = WebApp.Start<Startup>(baseUrl)
     Log.Information("Listening on {Address}", baseUrl)
-
-    let cancelSource = new CancellationTokenSource()
-    cancelSource.Token.WaitHandle.WaitOne() |> ignore
+    let waitIndefinitelyWithToken = 
+        let cancelSource = new CancellationTokenSource()
+        cancelSource.Token.WaitHandle.WaitOne() |> ignore
     0

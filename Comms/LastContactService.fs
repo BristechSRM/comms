@@ -1,21 +1,22 @@
 ﻿module Comms.LastContactService
 
-open Comms.CorrespondenceService
+open Comms.ThreadService
+open Comms.Models
 open System
 open System.Collections.Generic
 open Serilog
 
-let update key value (map : Dictionary<String, String>) =
-    if not <| map.ContainsKey(key) || map.[key] < value then
-        map.[key] <- value
+let threadToLastContactSummary(thread : ThreadDetail): LastContactSummary =
+    let lastCorrespondence = thread.Items |> Seq.maxBy (fun c -> c.Date)
+    {
+        ThreadId = thread.Id
+        Date = lastCorrespondence.Date
+        SenderId = lastCorrespondence.SenderId
+        ReceiverId = lastCorrespondence.ReceiverId
+    }
+
 
 let getLastContact () =
-    Log.Information("Calculating last contact from correspondence items")
+    Log.Information("Calculating last contact from correspondence")
 
-    let map = Dictionary<string, string>()
-
-    for item in getCorrespondence() do
-        map |> update item.From item.Date
-        map |> update item.To item.Date
-
-    map
+    getThreads() |> Seq.map threadToLastContactSummary 
