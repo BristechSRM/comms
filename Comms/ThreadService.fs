@@ -29,17 +29,18 @@ let getEntityItems (id : string) : seq<Correspondence> =
     |> Seq.map entityToCorrespondence
 
 let entityToThread (entity : ThreadEntity) : ThreadDetail = 
-    Log.Information("{S}", entity);
+    Log.Information("{S}", entity)
     { Id = entity.Id
       Items = entity.Id |> getEntityItems }
+
 
 let getThread (id : string) = 
     Log.Information("Contacting DynamoDB for thread with Id: {id}", id)
     let threads = context.Scan<ThreadEntity>(new ScanCondition("Id", ScanOperator.Equal, id))
-    try 
-        Some(entityToThread(Seq.head threads))
-    with
-        | :? System.ArgumentException -> None
+    let threadArray =  Seq.toArray threads
+
+    if Seq.isEmpty threadArray then None
+        else Some(entityToThread (Seq.head threadArray))
         
 
 let getThreads() = 
