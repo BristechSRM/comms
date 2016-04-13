@@ -37,7 +37,7 @@ let getThread (id : string) =
     Log.Information("Contacting DynamoDB for thread with Id: {id}", id)
     let threads = context.Scan<ThreadEntity>(new ScanCondition("Id", ScanOperator.Equal, id))
     try 
-        Some( entityToThread( Seq.head threads))
+        Some(entityToThread(Seq.head threads))
     with
         | :? System.ArgumentException -> None
         
