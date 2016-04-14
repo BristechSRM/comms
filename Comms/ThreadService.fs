@@ -21,6 +21,19 @@ let entityToCorrespondence (entity : CorrespondenceEntity) : Correspondence =
       Date = entity.Date
       Message = entity.Message }
 
+let correspondenceToEntity threadId (correspondence: Correspondence) : CorrespondenceEntity =
+    let entity = new CorrespondenceEntity()
+    entity.Id <- Guid.NewGuid().ToString()
+    entity.SenderId <- correspondence.SenderId
+    entity.ReceiverId <- correspondence.ReceiverId
+    entity.Type <- correspondence.Type
+    entity.SenderHandle <- correspondence.SenderHandle
+    entity.ReceiverHandle <- correspondence.ReceiverHandle
+    entity.Date <- correspondence.Date
+    entity.Message <- correspondence.Message
+    entity.ThreadId <- threadId
+    entity
+
 let getEntityItems (id : string) : seq<Correspondence> = 
     Log.Information("Contacting DynamoDB for correspondence items with ThreadId: {id}", id)
     let x = context.Scan<CorrespondenceEntity>(new ScanCondition("ThreadId", ScanOperator.Equal, id))
@@ -46,3 +59,27 @@ let getThread (id : string) =
 let getThreads() = 
     Log.Information("Contacting DynamoDB for threads")
     context.Scan<ThreadEntity>() |> Seq.map entityToThread
+
+let createCorrespondence threadId correspondence =
+    Log.Information "Create correspondence entry in Dynamo DB"
+    let entity = correspondenceToEntity threadId correspondence
+    let newId = entity.Id
+    context.Save entity
+    newId
+
+let createThread(correspondence : Correspondence[]) =
+    Log.Information("Creating entry in DynamoDB")
+    let newId = Guid.NewGuid().ToString()
+    let newThread = new ThreadEntity()
+    newThread.Id <- newId
+    context.Save newThread
+
+    let correspondenceBatch = context.CreateBatchWrite<CorrespondenceEntity>()
+    correspondenceBatch.AddPutItems(correspondence |> Seq.map (correspondenceToEntity newId) )
+    correspondenceBatch.Execute()
+    
+    let threads = context.Scan<ThreadEntity>(new ScanCondition("Id", ScanOperator.Equal, newId))
+    let threadArray =  Seq.toArray threads
+
+    if Seq.isEmpty threadArray then None
+    else Some(Seq.head threadArray)

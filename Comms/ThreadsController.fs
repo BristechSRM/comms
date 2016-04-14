@@ -22,4 +22,11 @@ type ThreadsController() =
         match thread with
         | Some thread -> x.Request.CreateResponse(thread)
         | None -> x.Request.CreateResponse(HttpStatusCode.NotFound)
+
+    member x.Post(correspondence) =
+        Log.Information("Received POST request for thread")
+        let thread = createThread(correspondence)
+        match thread with
+        | Some thread -> x.Request.CreateResponse(HttpStatusCode.Created, thread.Id)
+        | None -> x.Request.CreateResponse(HttpStatusCode.InternalServerError)
     

@@ -4,6 +4,7 @@ open Amazon.DynamoDBv2.DataModel
 
 [<DynamoDBTable("Thread")>]
 type ThreadEntity()  = 
+    [<DynamoDBHashKey>]
     member val Id = "" with get, set
     
 [<DynamoDBTable("CorrespondenceItem")>]
