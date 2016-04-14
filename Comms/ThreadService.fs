@@ -12,7 +12,7 @@ open Comms.Entities
 let client = new AmazonDynamoDBClient(RegionEndpoint.EUWest1)
 let context = new DynamoDBContext(client)
 
-let entityToCorrespondence (entity : CorrespondenceEntity) : Correspondence = 
+let entityToCorrespondenceItem (entity : CorrespondenceItemEntity) : CorrespondenceItem = 
     { SenderId = entity.SenderId
       ReceiverId = entity.ReceiverId
       Type = entity.Type
@@ -21,7 +21,7 @@ let entityToCorrespondence (entity : CorrespondenceEntity) : Correspondence =
       Date = entity.Date
       Message = entity.Message }
 
-let correspondenceToEntity threadId (correspondence: Correspondence) : CorrespondenceEntity =
+let correspondenceItemToEntity threadId (correspondence: CorrespondenceItem) : CorrespondenceItemEntity =
     { Id = Guid.NewGuid().ToString()
       SenderId = correspondence.SenderId
       ReceiverId = correspondence.ReceiverId
@@ -32,48 +32,44 @@ let correspondenceToEntity threadId (correspondence: Correspondence) : Correspon
       Message = correspondence.Message
       ThreadId = threadId }
 
-let getEntityItems (id : string) : seq<Correspondence> = 
+let getEntityItems (id : string) : seq<CorrespondenceItem> = 
     Log.Information("Contacting DynamoDB for correspondence items with ThreadId: {id}", id)
-    context.Scan<CorrespondenceEntity>(new ScanCondition("ThreadId", ScanOperator.Equal, id))
+    context.Scan<CorrespondenceItemEntity>(new ScanCondition("ThreadId", ScanOperator.Equal, id))
     |> Seq.cast
-    |> Seq.map entityToCorrespondence
+    |> Seq.map entityToCorrespondenceItem
 
 let entityToThread (entity : ThreadEntity) : ThreadDetail = 
     Log.Information("{S}", entity)
     { Id = entity.Id
       Items = entity.Id |> getEntityItems }
 
-
 let getThread (id : string) = 
     Log.Information("Contacting DynamoDB for thread with Id: {id}", id)
     let thread = context.Load<ThreadEntity>(id)
     if box thread = null then None
         else Some (entityToThread thread)
-        
 
 let getThreads() = 
     Log.Information("Contacting DynamoDB for threads")
     context.Scan<ThreadEntity>() |> Seq.map entityToThread
 
-let createCorrespondence threadId correspondence =
-    Log.Information "Create correspondence entry in Dynamo DB"
-    let entity = correspondenceToEntity threadId correspondence
-    let newId = entity.Id
-    context.Save entity
-    newId
-
-let createThread(correspondence : Correspondence[]) =
-    Log.Information("Creating entry in DynamoDB")
+let createThread(correspondence : CorrespondenceItem[]) =
     let newId = Guid.NewGuid().ToString()
-    let newThread = { ThreadEntity.Id = newId }
-    context.Save newThread
+     
+    Log.Information("Creating thread batch write")
+    let threadBatch = context.CreateBatchWrite<ThreadEntity>()
+    threadBatch.AddPutItem({ ThreadEntity.Id = newId })
 
-    let correspondenceBatch = context.CreateBatchWrite<CorrespondenceEntity>()
-    correspondenceBatch.AddPutItems(correspondence |> Seq.map (correspondenceToEntity newId) )
-    correspondenceBatch.Execute()
+    Log.Information("Creating correspondence batch write")
+    let correspondenceBatch = context.CreateBatchWrite<CorrespondenceItemEntity>()
+    correspondenceBatch.AddPutItems(correspondence |> Seq.map (correspondenceItemToEntity newId) )
     
-    let threads = context.Scan<ThreadEntity>(new ScanCondition("Id", ScanOperator.Equal, newId))
-    let threadArray =  Seq.toArray threads
+    Log.Information("Creating whole batch write")
+    let batchWrite = new MultiTableBatchWrite(threadBatch, correspondenceBatch)
+    
+    Log.Information("Executing batch write")
+    batchWrite.Execute()
 
-    if Seq.isEmpty threadArray then None
-    else Some(Seq.head threadArray)
+    let thread = context.Load<ThreadEntity>(newId)
+    if box thread = null then None
+        else Some (newId)

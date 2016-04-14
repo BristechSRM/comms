@@ -1,14 +1,10 @@
 ﻿module Comms.ThreadsController
 
-
-
 open System.Net
 open System.Web.Http
 open System.Net.Http
 open Serilog
 open Comms.ThreadService
-open Comms.Models
-
 
 type ThreadsController() = 
     inherit ApiController()
@@ -25,8 +21,8 @@ type ThreadsController() =
 
     member x.Post(correspondence) =
         Log.Information("Received POST request for thread")
-        let thread = createThread(correspondence)
-        match thread with
-        | Some thread -> x.Request.CreateResponse(HttpStatusCode.Created, thread.Id)
-        | None -> x.Request.CreateResponse(HttpStatusCode.InternalServerError)
+        let newThreadId = createThread(correspondence)
+        match newThreadId with
+        | Some newThreadId -> x.Request.CreateResponse(HttpStatusCode.Created, newThreadId)
+        | None -> x.Request.CreateResponse(HttpStatusCode.InternalServerError, "A new thread was not created.")
     
