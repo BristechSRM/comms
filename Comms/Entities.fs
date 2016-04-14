@@ -4,12 +4,10 @@ open Amazon.DynamoDBv2.DataModel
 
 [<DynamoDBTable("Thread")>]
 type ThreadEntity() = 
-    [<DynamoDBHashKey>]
     member val Id = "" with get, set
     
 [<DynamoDBTable("CorrespondenceItem")>]
 type CorrespondenceEntity() =
-    [<DynamoDBHashKey>]
     member val Id = "" with get, set
     member val SenderId = "" with get, set
     member val ReceiverId = "" with get, set
