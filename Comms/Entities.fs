@@ -3,11 +3,13 @@ namespace Comms.Entities
 open Amazon.DynamoDBv2.DataModel
 
 [<DynamoDBTable("Thread")>]
-type ThreadEntity()  = 
+type ThreadEntity() = 
+    [<DynamoDBHashKey>]
     member val Id = "" with get, set
     
 [<DynamoDBTable("CorrespondenceItem")>]
 type CorrespondenceEntity() =
+    [<DynamoDBHashKey>]
     member val Id = "" with get, set
     member val SenderId = "" with get, set
     member val ReceiverId = "" with get, set
@@ -17,5 +19,3 @@ type CorrespondenceEntity() =
     member val SenderHandle = "" with get, set
     member val ReceiverHandle = "" with get, set
     member val ThreadId = "" with get, set
-
-
