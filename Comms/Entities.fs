@@ -10,7 +10,7 @@ type ThreadEntity = {
     
 [<DynamoDBTable("CorrespondenceItem")>]
 [<CLIMutable>]
-type CorrespondenceEntity = {
+type CorrespondenceItemEntity = {
     Id : string
     SenderId : string
     ReceiverId : string

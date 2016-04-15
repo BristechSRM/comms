@@ -1,9 +1,6 @@
 ﻿module Comms.Models
 
-open System
-open Comms.Entities
-
-type Correspondence = {
+type CorrespondenceItem = {
     SenderId : string
     ReceiverId : string
     Type : string
@@ -15,7 +12,7 @@ type Correspondence = {
 
 type ThreadDetail = {
     Id : string
-    Items : seq<Correspondence>
+    Items : seq<CorrespondenceItem>
 }
 
 type LastContactSummary = {
