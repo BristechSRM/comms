@@ -62,7 +62,7 @@ let createThread(correspondence : CorrespondenceItem[]) =
 
     Log.Information("Creating correspondence batch write")
     let correspondenceBatch = context.CreateBatchWrite<CorrespondenceItemEntity>()
-    correspondenceBatch.AddPutItems(correspondence |> Seq.map (correspondenceItemToEntity newId) )
+    correspondenceBatch.AddPutItems(correspondence |> Seq.map (correspondenceItemToEntity newId))
     
     Log.Information("Creating whole batch write")
     let batchWrite = new MultiTableBatchWrite(threadBatch, correspondenceBatch)
@@ -71,5 +71,4 @@ let createThread(correspondence : CorrespondenceItem[]) =
     batchWrite.Execute()
 
     let thread = context.Load<ThreadEntity>(newId)
-    if box thread = null then None
-        else Some (newId)
+    if box thread = null then None else Some (newId)
