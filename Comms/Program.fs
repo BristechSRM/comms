@@ -1,7 +1,6 @@
 ﻿module Program
 
 open Microsoft.Owin.Hosting
-open Comms.Startup
 open System.Threading
 open Comms.Logging
 open Serilog
@@ -23,9 +22,11 @@ open Serilog
 [<EntryPoint>]
 let main _ = 
     setupLogging()
+
     let baseUrl = "http://*:9001"
-    use server = WebApp.Start<Startup>(baseUrl)
+    use server = WebApp.Start<Bristech.Srm.HttpConfig.Startup>(baseUrl)
     Log.Information("Listening on {Address}", baseUrl)
+
     let waitIndefinitelyWithToken = 
         let cancelSource = new CancellationTokenSource()
         cancelSource.Token.WaitHandle.WaitOne() |> ignore
