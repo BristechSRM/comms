@@ -34,7 +34,6 @@
     <Compile Include="LastContactController.fs" />
     <Compile Include="DocsController.fs" />
     <Compile Include="Logging.fs" />
-    <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
     <None Include="packages.config" />
     <Content Include="app.config">
