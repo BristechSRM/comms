@@ -24,7 +24,6 @@ resources:
   type: git
   source:
     uri: https://github.com/BristechSRM/comms.git
-    branch: dockerSwarmTestDoNotUse
 
 - name: image
   type: docker-image
