@@ -10,7 +10,7 @@ type CorrespondenceController() =
     inherit ApiController()
     
     member x.Get(profileIdOne : string, profileIdTwo : string) = 
-        Log.Information("Recieved get request for correspondence between profile 1: {profileIdOne} and profile 2 : {profileIdTwo}", profileIdOne, profileIdTwo)
+        Log.Information("Received get request for correspondence between profile 1: {profileIdOne} and profile 2 : {profileIdTwo}", profileIdOne, profileIdTwo)
         let correspondence = getCorrespondence profileIdOne profileIdTwo
         x.Request.CreateResponse(correspondence)
     
