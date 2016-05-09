@@ -21,5 +21,3 @@ else
     echo "Fake Package found"
 fi
 
-#run the setup git hooks script
-sh setupGitHooks.sh
