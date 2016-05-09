@@ -29,6 +29,7 @@
     <Compile Include="Entities.fs" />
     <Compile Include="LastContactService.fs" />
     <Compile Include="CorrespondenceService.fs" />
+    <Compile Include="ExternalIdsController.fs" />
     <Compile Include="CorrespondenceController.fs" />
     <Compile Include="LastContactController.fs" />
     <Compile Include="DocsController.fs" />

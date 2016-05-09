@@ -14,6 +14,14 @@ let context = new DynamoDBContext(client)
 
 let itemWithNewId (item : CorrespondenceItemEntity) = { item with Id = Guid.NewGuid().ToString() }
 
+let getExternalIdsByHandle (handle : string) = 
+    let senderResults = context.Scan<CorrespondenceItemEntity>(ScanCondition("SenderHandle",ScanOperator.Equal,handle))
+    let receiverResults = context.Scan<CorrespondenceItemEntity>(ScanCondition("ReceiverHandle",ScanOperator.Equal,handle))
+
+    [senderResults;receiverResults]
+    |> Seq.concat
+    |> Seq.map(fun x -> x.ExternalId)
+
 let getCorrespondence (profileIdOne : string) (profileIdTwo : string) = 
     Log.Information("Getting all correspondence between {id1} and {id2}", profileIdOne, profileIdTwo)
     let firstResult = 
