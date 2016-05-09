@@ -1,5 +1,6 @@
 ﻿module Program
 
+open System.Configuration
 open Microsoft.Owin.Hosting
 open System.Threading
 open Comms.Logging
@@ -22,8 +23,7 @@ open Serilog
 [<EntryPoint>]
 let main _ = 
     setupLogging()
-
-    let baseUrl = "http://*:8080"
+    let baseUrl = ConfigurationManager.AppSettings.Item("BaseUrl")
     use server = WebApp.Start<Bristech.Srm.HttpConfig.Startup>(baseUrl)
     Log.Information("Listening on {Address}", baseUrl)
 

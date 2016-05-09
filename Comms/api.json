@@ -14,32 +14,29 @@
         "application/json"
     ],
     "paths": {
-        "/threads": {
+        "/Correspondence": {
             "post": {
                 "tags": [
                     "comms"
                 ],
-                "summary": "Adds a communication thread",
-                "description": "Creates a communication thread",
+                "summary": "Adds a correspondence item",
+                "description": "Creates a correspondence item",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "The communication correspondence",
+                        "description": "The correspondence item",
                         "required": true,
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Correspondence"
-                            }
+                            "$ref": "#/definitions/Correspondence"
                         }
                     }
                 ],
                 "responses": {
                     "201": {
-                        "description": "Communication thread successfully created",
+                        "description": "Correspondence item successfully created",
                         "schema": {
-                            "$ref": "#/definitions/ThreadCreated"
+                            "$ref": "#/definitions/CorrespondenceItemCreated"
                         }
                     },
                     "422": {
@@ -55,20 +52,26 @@
                         }
                     }
                 }
-            }
-        },
-        "/threads/{threadId}": {
+            },
             "get": {
                 "tags": [
                     "comms"
                 ],
-                "summary": "Returns details of the specified communication thread",
-                "description": "Returns all correspondence within a communication thread",
+                "summary": "Get correspondence items between two profiles",
+                "description": "Get correspondence items between two profiles",
                 "parameters": [
                     {
-                        "in": "path",
-                        "name": "threadId",
-                        "description": "The communication thread identifier",
+                        "in": "query",
+                        "name": "profileIdOne",
+                        "description": "The identifier for the first profile",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    },
+                    {
+                        "in": "query",
+                        "name": "profileIdTwo",
+                        "description": "The identifier for the second profile",
                         "required": true,
                         "type": "string",
                         "format": "guid"
@@ -76,15 +79,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Communication thread found",
+                        "description": "Correspondence found",
                         "schema": {
-                            "$ref": "#/definitions/ThreadDetail"
-                        }
-                    },
-                    "404": {
-                        "description": "Communication thread not found",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Correspondence"
+                            }
                         }
                     }
                 }
@@ -95,15 +95,15 @@
                 "tags": [
                     "comms"
                 ],
-                "summary": "Retrieves the last contact date for all communication threads",
-                "description": "The last contact date for all communication threads includes the thread identifier, the date of the last contact in that thread, and the sender and receiver of the last contact in the thread.\n",
+                "summary": "Retrieves the last contact date for all profiles who have communicated",
+                "description": "The last contact date for all pairs of profiles with communication which includes the id for the pair, the date of the last contact, and the ids for the two profiles in the pair\n",
                 "responses": {
                     "200": {
                         "description": "Successful response",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/LastContactSummary"
+                                "$ref": "#/definitions/LastContact"
                             }
                         }
                     },
@@ -121,6 +121,15 @@
         "Correspondence": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "guid",
+                    "description": "Identifier for correspondence item"
+                },
+                "externalId": {
+                    "type": "string",
+                    "description": "External Identifier for correspondence message"
+                },
                 "senderId": {
                     "type": "string",
                     "format": "guid",
@@ -157,23 +166,7 @@
                 }
             }
         },
-        "ThreadDetail": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "format": "guid",
-                    "description": "The unique communication thread identifier"
-                },
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Correspondence"
-                    }
-                }
-            }
-        },
-        "ThreadCreated": {
+        "CorrespondenceItemCreated": {
             "type": "object",
             "properties": {
                 "id": {
@@ -182,28 +175,28 @@
                 }
             }
         },
-        "LastContactSummary": {
+        "LastContact": {
             "type": "object",
             "properties": {
-                "threadId": {
+                "Id": {
                     "type": "string",
-                    "format": "guid",
-                    "description": "The communication thread identifier."
+                    "format": "guid+guid",
+                    "description": "The identifier for this record as 'id1+id2"
                 },
                 "date": {
                     "type": "string",
                     "format": "date",
                     "description": "The date of the last communication."
                 },
-                "senderId": {
+                "profileIdOne": {
                     "type": "string",
                     "format": "guid",
-                    "description": "The identifier of the sender"
+                    "description": "The identifier of profile one in the pair"
                 },
-                "receiverId": {
+                "profileIdTwo": {
                     "type": "string",
                     "format": "guid",
-                    "description": "The identifier of the receiver"
+                    "description": "The identifier of profile two in the pair"
                 }
             }
         },

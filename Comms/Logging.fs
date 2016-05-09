@@ -2,6 +2,6 @@
 
 open Serilog
 
-let setupLogging () =
+let setupLogging() = 
     Log.Logger <- LoggerConfiguration().ReadFrom.AppSettings().CreateLogger()
     Log.Information("Serilog logging initialised")

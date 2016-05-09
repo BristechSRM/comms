@@ -27,10 +27,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Entities.fs" />
-    <Compile Include="Models.fs" />
-    <Compile Include="ThreadService.fs" />
-    <Compile Include="ThreadsController.fs" />
     <Compile Include="LastContactService.fs" />
+    <Compile Include="CorrespondenceService.fs" />
+    <Compile Include="CorrespondenceController.fs" />
     <Compile Include="LastContactController.fs" />
     <Compile Include="DocsController.fs" />
     <Compile Include="Logging.fs" />
@@ -88,6 +87,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
