@@ -5,6 +5,8 @@ open Serilog
 open System.Net
 open System.Net.Http
 open System.Web.Http
+open Comms.Models
+open Comms.Entities
 
 type CorrespondenceController() = 
     inherit ApiController()
@@ -14,9 +16,9 @@ type CorrespondenceController() =
         let correspondence = getCorrespondence profileIdOne profileIdTwo
         x.Request.CreateResponse(correspondence)
     
-    member x.Post(correspondence) = 
+    member x.Post(correspondence : CorrespondenceItemEntity) = 
         Log.Information("Received POST request for correspondence")
-        let newId = createCorrespondenceItem (correspondence)
-        match newId with
-        | Some newId -> x.Request.CreateResponse(HttpStatusCode.Created, newId)
-        | None -> x.Request.CreateResponse(HttpStatusCode.InternalServerError, "A new correspondence item was not created.")
+        let result = createCorrespondenceItem (correspondence)
+        match result with
+        | Success newId-> x.Request.CreateResponse(HttpStatusCode.Created, newId)
+        | Failure error -> x.Request.CreateResponse(error.HttpStatus, error.Message)

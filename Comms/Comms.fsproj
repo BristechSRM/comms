@@ -27,6 +27,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Entities.fs" />
+    <Compile Include="Models.fs" />
     <Compile Include="LastContactService.fs" />
     <Compile Include="CorrespondenceService.fs" />
     <Compile Include="ExternalIdsController.fs" />

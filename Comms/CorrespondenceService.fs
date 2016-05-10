@@ -5,9 +5,11 @@ open Amazon.DynamoDBv2
 open Amazon.DynamoDBv2.DataModel
 open Amazon.DynamoDBv2.DocumentModel
 open Comms.Entities
+open Comms.Models
 open Comms.LastContactService
 open Serilog
 open System
+open System.Net
 
 let client = new AmazonDynamoDBClient(RegionEndpoint.EUWest1)
 let context = new DynamoDBContext(client)
@@ -34,11 +36,19 @@ let getCorrespondence (profileIdOne : string) (profileIdTwo : string) =
 
 let createCorrespondenceItem (item : CorrespondenceItemEntity) = 
     Log.Information("Saving correspondence between {id1} and {id2}", item.ReceiverId, item.SenderId)
-    let entity = itemWithNewId item
-    context.Save(entity)
-    let item = context.Load<CorrespondenceItemEntity>(entity.Id)
-    match box item |> isNull with
-    | true -> None
-    | false -> 
-        updateLastContact item
-        Some item.Id
+    let itemExists = 
+        context.Scan<CorrespondenceItemEntity>(ScanCondition("ExternalId",ScanOperator.Equal,item.ExternalId))
+        |> Seq.isEmpty
+        |> not
+
+    if itemExists then
+        Failure {HttpStatus = enum 422; Message = "Item already exists. A new correspondence item was not created."}
+    else 
+        let entity = itemWithNewId item
+        context.Save(entity)
+        let item = context.Load<CorrespondenceItemEntity>(entity.Id)
+        match box item |> isNull with
+        | true -> Failure {HttpStatus = HttpStatusCode.InternalServerError; Message = "Internal Server Error.A new correspondence item was not created." }
+        | false -> 
+            updateLastContact item
+            Success item.Id
