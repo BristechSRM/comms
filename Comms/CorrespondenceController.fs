@@ -1,12 +1,12 @@
-﻿module Comms.CorrespondenceController
+﻿module CorrespondenceController
 
-open Comms.CorrespondenceService
+open CorrespondenceService
 open Serilog
 open System.Net
 open System.Net.Http
 open System.Web.Http
-open Comms.Models
-open Comms.Entities
+open Models
+open Entities
 
 type CorrespondenceController() = 
     inherit ApiController()

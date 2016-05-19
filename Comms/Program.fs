@@ -1,9 +1,9 @@
 ﻿module Program
 
-open System.Configuration
 open Microsoft.Owin.Hosting
+open System.Configuration
 open System.Threading
-open Comms.Logging
+open Logging
 open Serilog
 
 (*

@@ -1,4 +1,4 @@
-﻿module Comms.Models
+﻿module Models
 
 open System.Net
 

@@ -1,12 +1,12 @@
-﻿module Comms.CorrespondenceService
+﻿module CorrespondenceService
 
 open Amazon
 open Amazon.DynamoDBv2
 open Amazon.DynamoDBv2.DataModel
 open Amazon.DynamoDBv2.DocumentModel
-open Comms.Entities
-open Comms.LastContactService
-open Comms.Models
+open Entities
+open LastContactService
+open Models
 open Serilog
 open System
 open System.Net
