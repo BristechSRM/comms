@@ -1,4 +1,4 @@
-namespace Comms.Entities
+namespace Entities
 
 open Amazon.DynamoDBv2.DataModel
 

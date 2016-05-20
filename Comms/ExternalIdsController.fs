@@ -1,6 +1,6 @@
-﻿module Comms.ExternalIdsController
+﻿module ExternalIdsController
 
-open Comms.CorrespondenceService
+open CorrespondenceService
 open Serilog
 open System.Net
 open System.Net.Http

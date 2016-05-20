@@ -1,4 +1,4 @@
-﻿module Comms.Logging
+﻿module Logging
 
 open Serilog
 

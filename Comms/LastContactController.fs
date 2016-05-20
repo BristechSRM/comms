@@ -1,6 +1,6 @@
-﻿namespace Comms.LastContactController
+﻿module LastContactController
 
-open Comms.LastContactService
+open LastContactService
 open Serilog
 open System.Net.Http
 open System.Web.Http

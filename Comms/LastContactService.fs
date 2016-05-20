@@ -1,9 +1,9 @@
-﻿module Comms.LastContactService
+﻿module LastContactService
 
 open Amazon
 open Amazon.DynamoDBv2
 open Amazon.DynamoDBv2.DataModel
-open Comms.Entities
+open Entities
 open Serilog
 open System
 
