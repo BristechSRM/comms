@@ -1,13 +1,12 @@
 ﻿module LastContactService
 
-open Amazon
 open Amazon.DynamoDBv2
 open Amazon.DynamoDBv2.DataModel
 open Entities
 open Serilog
 open System
 
-let client = new AmazonDynamoDBClient(RegionEndpoint.EUWest1)
+let client = new AmazonDynamoDBClient(DynamoDbConfig.config)
 let context = new DynamoDBContext(client)
 let pairIds (idOne : string) (idTwo : string) = String.concat "+" [ idOne; idTwo ]
 
