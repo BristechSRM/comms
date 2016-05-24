@@ -1,6 +1,5 @@
 ﻿module CorrespondenceService
 
-open Amazon
 open Amazon.DynamoDBv2
 open Amazon.DynamoDBv2.DataModel
 open Amazon.DynamoDBv2.DocumentModel
@@ -11,7 +10,7 @@ open Serilog
 open System
 open System.Net
 
-let client = new AmazonDynamoDBClient(RegionEndpoint.EUWest1)
+let client = new AmazonDynamoDBClient(DynamoDbConfig.config)
 let context = new DynamoDBContext(client)
 let itemWithNewId (item : CorrespondenceItemEntity) = { item with Id = Guid.NewGuid().ToString() }
 
