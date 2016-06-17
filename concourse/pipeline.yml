@@ -1,8 +1,8 @@
 resource_types:
-  - name: ecs
+  - name: docker-swarm-deploy
     type: docker-image
     source:
-      repository: bristechsrm/notify_ecs
+      repository: bristechsrm/docker-swarm-deploy
 jobs:
 - name: build
   public: true
@@ -17,7 +17,7 @@ jobs:
   - put: image
     params:
       build: context
-  - put: cluster
+  - put: swarm
 
 resources:
 - name: code
@@ -33,12 +33,13 @@ resources:
     password: {{docker-hub-password}}
     repository: bristechsrm/comms
 
-- name: cluster
-  type: ecs
+- name: swarm
+  type: docker-swarm-deploy
   source:
-    stackName: development
-    clusterName: apiCluster
-    taskName: commsTaskDefinition
-    serviceName: commsService
+    serviceName: comms
+    nodeName: {{commsNode}}
+    repository: bristechsrm/comms
+    swarmMasterIp: {{swarmMasterIp}}
+    overlay: overlay
     accessKeyId: {{awsAccessKeyId}}
     secretAccessKey: {{awsSecretAccessKey}}
