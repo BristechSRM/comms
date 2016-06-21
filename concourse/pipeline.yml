@@ -3,6 +3,7 @@ resource_types:
     type: docker-image
     source:
       repository: bristechsrm/docker-swarm-deploy
+
 jobs:
 - name: build
   public: true
@@ -37,9 +38,9 @@ resources:
   type: docker-swarm-deploy
   source:
     serviceName: comms
+    executableName: Comms
     nodeName: {{commsNode}}
+    portNumber: 8080
     repository: bristechsrm/comms
     swarmMasterIp: {{swarmMasterIp}}
-    overlay: overlay
-    accessKeyId: {{awsAccessKeyId}}
-    secretAccessKey: {{awsSecretAccessKey}}
+    network: bridge
