@@ -51,4 +51,14 @@ Example Response
 }
 ````
 
-Note. comms will require aws credentials with dynamodb read access in the file ~/.aws/credentials.
+Comms needs some secret information that is not checked in.  This consists of secrets.config
+
+Secrets file
+---
+The secrets.config file should contain:
+```
+<appSettings>
+    <add key="AWSAccessKey" value="" />
+    <add key="AWSSecretKey" value="" />
+</appSettings>
+```
