@@ -62,3 +62,10 @@ The secrets.config file should contain:
     <add key="AWSSecretKey" value="" />
 </appSettings>
 ```
+
+## Running on linux.
+To run easily on linux for local development you need to
+
+    1. Edit the app.config file if required.
+    2. Place the secrets.config file mentioned in the section above at `../configs/Comms.secrets.config` (a folder called configs at the same level as the top level comms repository folder)
+    3. Run `./localBuildRun.sh`
