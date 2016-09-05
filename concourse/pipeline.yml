@@ -39,8 +39,6 @@ resources:
   source:
     serviceName: comms
     executableName: Comms
-    nodeName: {{commsNode}}
-    portNumber: 8080
     repository: bristechsrm/comms
-    swarmMasterIp: {{swarmMasterIp}}
-    network: bridge
+    swarmMaster: {{swarmMaster}}
+    network: srm-swarm
