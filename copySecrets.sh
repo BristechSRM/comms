@@ -1,2 +1,2 @@
 #!/bin/bash -euv
-cp ../configs/Comms.secrets.config build/output/secrets.config
+cp ../configs/Comms.exe.secrets build/output/Comms.exe.secrets
